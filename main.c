@@ -26,8 +26,6 @@ void raise_next_window (Display *dpy) {
 int main() {
 	Display *dpy;
 	Window root;
-	XWindowAttributes attr;
-	XButtonEvent start; /*save pointer state*/
 	XEvent ev;
 
 	dpy = XOpenDisplay(0);
