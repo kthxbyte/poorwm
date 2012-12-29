@@ -3,21 +3,15 @@
 
 void raise_next_window (Display *dpy) {
 	Window root, parent, *wins, *w;
+	XWindowAttributes attr;
 	unsigned int num_wins;
-	XQueryTree(dpy, 
-		DefaultRootWindow(dpy), 
-		&root, 
-		&parent, 
-		&wins, 
-		&num_wins);
-
-	/* Switch to the first viewable window we can find, *
-	 *  back-to-front (I guess).                        */
-	for (w=wins; w<wins+num_wins; w++) {
-		XWindowAttributes attr;
-		XGetWindowAttributes(dpy,*w,&attr);
+	
+	/* Switch to the first viewable window we can find */
+	XQueryTree(dpy, DefaultRootWindow(dpy),	&root, &parent,	&wins, &num_wins);
+	for (w=wins; w < (wins+num_wins); w++) {
+		XGetWindowAttributes(dpy, *w, &attr);
 		if (attr.map_state == IsViewable) {
-			XRaiseWindow(dpy,*w);
+			XRaiseWindow(dpy, *w);
 			return;
 		}
 	}
@@ -28,26 +22,14 @@ int main() {
 	Window root;
 	XEvent ev;
 
-	dpy = XOpenDisplay(0);
-	if (!dpy) return 1; /* "Cannot open display" */
+	if (!(dpy = XOpenDisplay(0))) return 1;       /* "Cannot open display" */
+	root = DefaultRootWindow(dpy);	
+	XGrabKey(dpy, XKeysymToKeycode(dpy, XStringToKeysym("Tab")), 
+		Mod1Mask, root, True, GrabModeAsync, GrabModeAsync);
 
-	/* Default screen only. Multi-head may be out of luck. */
-	root = DefaultRootWindow(dpy);
-	
-	XGrabKey(dpy,
-		XKeysymToKeycode(dpy, XStringToKeysym("Tab")),
-		Mod1Mask,
-		root,
-		True,
-		GrabModeAsync,
-		GrabModeAsync);
-
-	/* Basic main loop */
 	for (;;) {
 		XNextEvent(dpy, &ev);
-		if (ev.type == KeyPress) {
-			raise_next_window (dpy);
-		}
+		if (ev.type == KeyPress) raise_next_window (dpy);
 	}		
 }
 
