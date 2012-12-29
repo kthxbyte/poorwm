@@ -2,7 +2,7 @@
 #include <X11/Xutil.h>
 
 void raise_next_window (Display *dpy) {
-	Window root, parent, *wins, *w, *raised;
+	Window root, parent, *wins, *w;
 	unsigned int num_wins;
 	XQueryTree(dpy, 
 		DefaultRootWindow(dpy), 
