@@ -11,6 +11,9 @@ void raise_next_window (Display *dpy) {
 	for (w=wins; w < (wins+num_wins); w++) {
 		XGetWindowAttributes(dpy, *w, &attr);
 		if (attr.map_state == IsViewable) {
+			XResizeWindow(dpy, *w,
+				DisplayWidth(dpy, DefaultScreen(dpy)),
+				DisplayHeight(dpy, DefaultScreen(dpy)));
 			XRaiseWindow(dpy, *w);
 			return;
 		}
