@@ -18,8 +18,8 @@ Features
 
 Building poorwm
 ===============
-make
-sudo make install
+- make
+- sudo make install
 
 Known bugs
 ==========
