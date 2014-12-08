@@ -1,15 +1,27 @@
 poorwm
 ======
 
-PoorWM is an extremely limited window manager for X11. The only 
-interaction it implements is window switching by pressing Alt+Tab. 
-There are no window borders, no maximize/minimize/close, nothing.
+PoorWM is a hostile fullscreen window manager for X11.
 
-This project started right after finding TinyWM by Nick Welch, 
-whose code was quickly studied and slightly modified to implement 
-window switching, the only feature I needed in a window manager 
-for my NEC MobilePro 900C handheld running JLime. Anything else 
-is overkill for that tiny 640x240 screen. 
+This project begins after finding TinyWM by Nick Welch
+(http://incise.org/tinywm.html), whose code was quickly
+studied and slightly modified to implement window switching.
 
-If you're interested in TinyWM, just point your web browser to 
-http://incise.org/tinywm.html 
+Features
+========
+- Fullscreen windows
+- Window switching by pressing Alt+Tab
+- No window borders
+- No maximize / minimize / close user interaction
+- No visual hints of any kind
+- Small enough code base
+
+Building poorwm
+===============
+make
+sudo make install
+
+Known bugs
+==========
+- New windows are not immediately forced to fullscreen, but
+  will behave themselves after reaching them via Alt+Tabbing.
