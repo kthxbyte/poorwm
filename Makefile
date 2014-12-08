@@ -11,3 +11,5 @@ main.o: main.c
 clean:
 	rm poorwm *.o
 
+install: poorwm
+	cp poorwm /usr/bin
